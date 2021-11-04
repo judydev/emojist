@@ -1,0 +1,27 @@
+import React from 'react';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Emoji } from './Emoji';
+
+export function EmojiWithTooltip(props: any) {
+    return (
+        <OverlayTrigger
+            placement="right"
+            delay={{ show: 250, hide: 400 }}
+            overlay={renderTooltip}
+        >
+            <div className='emoji-box' onClick={() => {
+                console.log('TODO: add to clipboard')
+            }}>
+                <Emoji image={props.image} />
+            </div>
+        </OverlayTrigger>
+    )
+}
+
+const renderTooltip = (props: any) => (
+    <Tooltip id="button-tooltip" {...props}>
+        Copy
+    </Tooltip>
+);
+
+
