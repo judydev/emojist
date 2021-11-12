@@ -1,35 +1,41 @@
 import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { AddImage } from './AddImage';
 import './App.css';
-import cat from './assets/cat.jpeg';
-import monkey from './assets/monkey.jpeg';
-import otter from './assets/otter.jpeg';
 import { EmojiWithTooltip } from './EmojiWithTooltip';
 import { readImage } from './utils/readImage';
 
 function App() {
-  let list = [cat, monkey, otter];
-  const storage = localStorage.getItem('emojis');
-  if(storage){
-    list = [...list,storage]
-  }
+  const [emojis, setEmojis] = useState([] as string[]);
 
-  const [emojis,setEmojis] = useState(list);
+  useEffect(() => {
+    const storage = localStorage.getItem('emojis');
+    if (storage) {
+      console.log('stor', storage)
 
-  useEffect(()=>{
-    console.log('onMounted',localStorage)
-  },[])
+      setEmojis(JSON.parse(storage));
+    }
+  }, []);
 
   return (
     <div className="App">
-      {
-        emojis.map((image:string, index:number)=>(
+      {emojis.map((image: string, index: number) => (
           <div key={'emoji-'+index}>
-            <EmojiWithTooltip image={image} />
+          <EmojiWithTooltip
+            key={index}
+            image={image}
+            onRemoveEmoji={(img: string) => {
+              const index = emojis.indexOf(img);
+              let list = emojis;
+              list.splice(index, 1);
+              console.log('li', emojis, img, index, list)
+              setEmojis([...list]);
+              localStorage.setItem('emojis', JSON.stringify(list))
+            }}
+          />
           </div>
-        ))
-      }
+      ))}
       <AddImage onAddImage={onAddImage} />
+      <button onClick={() => { window.location.reload() }}>&#8634;</button>
     </div>
   );
 
@@ -39,11 +45,12 @@ function App() {
       const file = files[0];
 
       console.log('onAddImage',file,typeof file);
-      readImage(file, (img:any)=>{
+      readImage(file, (img: string) => {
         console.log('callback',img)
         // add as json?
-        localStorage.setItem('emojis',img);
-        setEmojis([...emojis,img]);
+        let list: string[] = [...emojis, img];
+        localStorage.setItem('emojis', JSON.stringify(list));
+        setEmojis(list);
       })
     }
   }

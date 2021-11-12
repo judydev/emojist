@@ -8,8 +8,8 @@
     "default_title":"Emojist"
   },
   "icons": {
-    "16":"doge.png",
-    "48":"doge.png",
-    "128": "doge.png"
+    "16":"doge.ico",
+    "48":"doge.ico",
+    "128": "doge.ico"
   }
 }

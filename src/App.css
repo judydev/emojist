@@ -8,7 +8,7 @@
   width: 60px;
   height: 60px;
   align-content: center;
-  vertical-align: center;
+  display: flex;
 }
 
 .default-image {
