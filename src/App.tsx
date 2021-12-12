@@ -1,60 +1,50 @@
-import React, { SyntheticEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AddImage } from './AddImage';
 import './App.css';
-import { EmojiWithTooltip } from './EmojiWithTooltip';
-import { readImage } from './utils/readImage';
+import { Emoji } from './Emoji';
 
 function App() {
   const [emojis, setEmojis] = useState([] as string[]);
+  const [showSetting, setShowSetting] = useState(false);
 
   useEffect(() => {
     const storage = localStorage.getItem('emojis');
     if (storage) {
-      console.log('stor', storage)
-
       setEmojis(JSON.parse(storage));
     }
   }, []);
 
   return (
     <div className="App">
-      {emojis.map((image: string, index: number) => (
-          <div key={'emoji-'+index}>
-          <EmojiWithTooltip
-            key={index}
-            image={image}
-            onRemoveEmoji={(img: string) => {
-              const index = emojis.indexOf(img);
-              let list = emojis;
-              list.splice(index, 1);
-              console.log('li', emojis, img, index, list)
-              setEmojis([...list]);
-              localStorage.setItem('emojis', JSON.stringify(list))
-            }}
-          />
+      <div className='emoji-grid-box'>
+        {emojis.map((image: string, index: number) => (
+          <div className='emoji-grid' key={'emoji-' + index}>
+            <Emoji
+              key={index}
+              image={image}
+              onRemoveEmoji={(img: string) => {
+                const index = emojis.indexOf(img);
+                let list = emojis;
+                list.splice(index, 1);
+                setEmojis([...list]);
+                localStorage.setItem('emojis', JSON.stringify(list))
+              }}
+              showSetting={showSetting}
+            />
           </div>
-      ))}
-      <AddImage onAddImage={onAddImage} />
+        ))}
+        <AddImage onAddImage={onAddImage} setShowSetting={setShowSetting} />
+      </div>
       <button onClick={() => { window.location.reload() }}>&#8634;</button>
+      <button onClick={() => setShowSetting(!showSetting)}>&#9881;</button>
     </div>
   );
 
-  function onAddImage(event:SyntheticEvent) {
-    const files = (event.target as HTMLInputElement).files;
-    if(files){
-      const file = files[0];
-
-      console.log('onAddImage',file,typeof file);
-      readImage(file, (img: string) => {
-        console.log('callback',img)
-        // add as json?
-        let list: string[] = [...emojis, img];
-        localStorage.setItem('emojis', JSON.stringify(list));
-        setEmojis(list);
-      })
-    }
+  function onAddImage(img: string) {
+    let list: string[] = [...emojis, img];
+    localStorage.setItem('emojis', JSON.stringify(list));
+    setEmojis(list);
   }
 }
-
 
 export default App;

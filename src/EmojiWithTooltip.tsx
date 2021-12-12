@@ -9,13 +9,7 @@ export function EmojiWithTooltip(props: any) {
             delay={{ show: 250, hide: 400 }}
             overlay={renderTooltip}
         >
-            <div className='emoji-box'>
-                <Emoji image={props.image} />
-                <button onClick={() => {
-                    console.log('TODO: add to clipboard')
-                }}>Copy</button>
-                <button onClick={() => props.onRemoveEmoji(props.image)}>Remove</button>
-            </div>
+            <Emoji image={props.image} />
         </OverlayTrigger>
     )
 }

@@ -1,0 +1,9 @@
+.add-image-button{
+   position: absolute;
+   left: 12px;
+   top: -6px;
+   font-size: 50px;
+   color: grey;
+   font-size: 48px;
+   cursor: default;
+}

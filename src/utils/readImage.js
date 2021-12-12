@@ -1,12 +1,17 @@
 export function readImage(file, callback) {
-  const reader = new FileReader();
+    const reader = new FileReader();
 
-  reader.addEventListener("load", function () {
-    // convert image file to base64 string
-    callback(reader.result);
-  }, false);
+    if (file.size > 1024 * 1024) {
+        alert("File size is larger than 1MB");
+        return;
+    }
 
-  if (file) {
-    reader.readAsDataURL(file);
-  }
+    if (file) {
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            let dataURL = reader.result;
+            console.log("url", dataURL.toString());
+            callback(dataURL);
+        };
+    }
 }
