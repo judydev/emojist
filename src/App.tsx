@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AddImage } from './AddImage';
 import './App.css';
 import { Emoji } from './Emoji';

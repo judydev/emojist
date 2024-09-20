@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useRef } from 'react';
+import { SyntheticEvent, useRef } from 'react';
 import './AddImage.css';
 import { readImage } from './utils/readImage';
 

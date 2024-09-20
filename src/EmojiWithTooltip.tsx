@@ -1,4 +1,3 @@
-import React from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Emoji } from './Emoji';
 

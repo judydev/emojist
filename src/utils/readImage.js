@@ -10,7 +10,6 @@ export function readImage(file, callback) {
         reader.readAsDataURL(file);
         reader.onload = function () {
             let dataURL = reader.result;
-            console.log("url", dataURL.toString());
             callback(dataURL);
         };
     }
