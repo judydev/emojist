@@ -2,7 +2,7 @@
   "name": "Emojist",
   "description":"Save your favorite emojis.",
   "version":"1.0",
-  "manifest_version":2,
+  "manifest_version":3,
   "browser_action":{
     "default_popup":"index.html",
     "default_title":"Emojist"
